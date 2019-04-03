@@ -8,13 +8,13 @@ import MainRouter from './routers/MainRouter';
 const theme = createMuiTheme ({
   palette: {
     primary: {
-      main: '#f38181',
+      main: '#ff165d',
     },
     secondary: {
-      main: '#fce38a',
+      main: '#ff9a00',
     },
     tertiary: {
-      main: '#95e1d3',
+      main: '#3ec1d3',
     },
   },
   typography: {useNextVariants: true},
