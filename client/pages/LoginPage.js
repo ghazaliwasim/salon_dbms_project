@@ -76,10 +76,14 @@ class LoginPage extends React.Component {
         password: this.state.password,
       };
 
-      login (user).then (jwt => {
-        authenticate (jwt, () => {
-          console.log ('DONE');
-        });
+      login (user).then (data => {
+        if (data.errorMessage) {
+          this.setState (() => ({error: data.errorMessage}));
+        } else {
+          authenticate (data, () => {
+            this.props.history.push ('/');
+          });
+        }
       });
     }
   };

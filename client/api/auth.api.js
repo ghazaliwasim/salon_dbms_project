@@ -8,7 +8,11 @@ export const login = user => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then (({data}) => {
-    return data;
-  });
+  })
+    .then (({data}) => {
+      return data;
+    })
+    .catch (err => {
+      return err.response.data;
+    });
 };
