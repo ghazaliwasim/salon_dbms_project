@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import red from '@material-ui/core/colors/red';
 import {withStyles} from '@material-ui/core/styles';
 
 import {create} from '../api/user.api';
@@ -37,6 +38,10 @@ const styles = theme => {
       '&:hover': {
         backgroundColor: theme.palette.secondary.main,
       },
+    },
+    error: {
+      color: red[500],
+      fontWeight: 'bold',
     },
   };
 };
@@ -81,7 +86,7 @@ class SignupPage extends React.Component {
       };
 
       create (user).then (data => {
-        console.log (data);
+        this.props.history.push ('/login?new=true');
       });
     }
   };
@@ -152,7 +157,10 @@ class SignupPage extends React.Component {
               onChange={this.onFieldChange ('password')}
             />
             <br />
-            {this.state.error && <Typography>{this.state.error}</Typography>}
+            {this.state.error &&
+              <Typography variant="subtitle1" className={classes.error}>
+                {this.state.error}
+              </Typography>}
           </CardContent>
           <CardActions>
             <Button
