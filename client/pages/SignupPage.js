@@ -11,20 +11,35 @@ import {withStyles} from '@material-ui/core/styles';
 
 import {create} from '../api/user.api';
 
-const styles = theme => ({
-  card: {
-    maxWidth: 600,
-    margin: 'auto',
-    textAlign: 'center',
-  },
-  textField: {
-    width: 300,
-  },
-  button: {
-    margin: 'auto',
-    marginBottom: theme.spacing.unit * 5,
-  },
-});
+const styles = theme => {
+  console.log (theme.palette.tertiary);
+  return {
+    card: {
+      maxWidth: 600,
+      margin: 'auto',
+      textAlign: 'center',
+      marginTop: theme.spacing.unit * 5,
+      marginBottom: theme.spacing.unit * 5,
+    },
+    title: {
+      fontWeight: 300,
+      marginBottom: theme.spacing.unit * 2,
+    },
+    textField: {
+      width: 300,
+      marginBottom: theme.spacing.unit * 2,
+    },
+    button: {
+      margin: 'auto',
+      marginBottom: theme.spacing.unit * 5,
+      backgroundColor: theme.palette.tertiary.main,
+
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+      },
+    },
+  };
+};
 
 class SignupPage extends React.Component {
   state = {
@@ -77,8 +92,11 @@ class SignupPage extends React.Component {
       <div>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h5">Signup</Typography>
+            <Typography className={classes.title} variant="h4">
+              Signup
+            </Typography>
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.firstName}
               label="First Name"
@@ -87,6 +105,7 @@ class SignupPage extends React.Component {
             />
             <br />
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.middleName}
               label="Middle Name (Optional)"
@@ -95,6 +114,7 @@ class SignupPage extends React.Component {
             />
             <br />
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.lastName}
               label="Last Name"
@@ -103,6 +123,7 @@ class SignupPage extends React.Component {
             />
             <br />
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.gender}
               select
@@ -114,6 +135,7 @@ class SignupPage extends React.Component {
               <MenuItem value={'O'}>O</MenuItem>
             </TextField><br />
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.email}
               label="Email"
@@ -122,6 +144,7 @@ class SignupPage extends React.Component {
             />
             <br />
             <TextField
+              variant="outlined"
               className={classes.textField}
               value={this.state.password}
               label="Password"
@@ -135,7 +158,6 @@ class SignupPage extends React.Component {
             <Button
               className={classes.button}
               variant="contained"
-              color="primary"
               onClick={this.onSubmit}
             >
               Submit
