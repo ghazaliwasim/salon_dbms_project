@@ -24,6 +24,28 @@ const create = (req, res) => {
   });
 };
 
+const list = (req, res) => {
+  const {salonId} = req.query;
+
+  const sql = `
+    SELECT * FROM feedback 
+    WHERE salon_id = ?
+  `;
+
+  connection.query (sql, parseInt (salonId, 10), function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) {
+      return res.status (400).json ({err});
+    }
+
+    res.status (200).json ({feedbacks: results});
+  });
+};
+
 module.exports = {
   create,
+  list,
 };

@@ -6,6 +6,7 @@ const router = express.Router ();
 
 router
   .route ('/api/feedback')
-  .post (authCtrl.requireSignin, feedbackCtrl.create);
+  .post (authCtrl.requireSignin, feedbackCtrl.create)
+  .get (authCtrl.requireSignin, feedbackCtrl.list);
 
 module.exports = router;
