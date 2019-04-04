@@ -14,7 +14,7 @@ export const create = (salon, token) => {
   });
 };
 
-export const list = (token, limit) => {
+export const listSalons = (token, limit) => {
   if (limit) {
     return axios ({
       method: 'get',
