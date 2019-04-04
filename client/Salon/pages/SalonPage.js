@@ -111,6 +111,13 @@ class SalonPage extends React.Component {
                 Add Time table
               </Link>
 
+              <hr />
+
+              <h2>Feedback</h2>
+              <Link to={`/salon/${salon.id}/feedback/create`}>
+                Add feedback
+              </Link>
+
             </div>
           : <div>Loading</div>}
       </div>
