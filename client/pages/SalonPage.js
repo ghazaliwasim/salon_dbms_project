@@ -121,6 +121,20 @@ class SalonPage extends React.Component {
               <Typography color="secondary" variant="h5" gutterBottom>
                 Staffs
               </Typography>
+              {this.state.salon.user_id === isAuthenticated().user.id && (
+                <Link
+                  className={classes.link}
+                  to={`/salon/${salon.id}/staff/create`}
+                >
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    className={classes.button}
+                  >
+                    Add Staff
+                  </Button>
+                </Link>
+              )}
               {this.state.staffs.map(staff => (
                 <div className={classes.staffItem} key={staff.id}>
                   <Typography variant="h6">
@@ -133,6 +147,20 @@ class SalonPage extends React.Component {
                   <Typography variant="body2" gutterBottom>
                     {staff.gender === 'F' && 'Female'}
                   </Typography>
+                  {this.state.salon.user_id === isAuthenticated().user.id && (
+                    <Link
+                      className={classes.link}
+                      to={`/salon/${this.state.salon.id}/staff/${staff.id}`}
+                    >
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.button}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
+                  )}
                   <Divider variant="fullWidth" />
                 </div>
               ))}

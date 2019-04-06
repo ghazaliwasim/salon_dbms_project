@@ -12,8 +12,8 @@ import HomePage from '../pages/HomePage';
 import SalonListPage from '../pages/SalonListPage';
 // import SalonPage from '../Salon/pages/SalonPage';
 import SalonPage from '../pages/SalonPage';
-import AddStaffPage from '../Salon/pages/AddStaffPage';
-import UpdateStaffPage from '../Salon/pages/UpdateStaffPage';
+import CreateStaffPage from '../pages/CreateStaffPage';
+import EditStaffPage from '../pages/EditStaffPage';
 import CreateSalonPage from '../pages/CreateSalonPage';
 import EditSalonPage from '../pages/EditSalonPage';
 import AddServicePage from '../Salon/pages/AddServicePage';
@@ -39,11 +39,11 @@ const MainRouter = () => (
         />
         <PrivateRoute
           path="/salon/:salonId/staff/create"
-          component={AddStaffPage}
+          component={CreateStaffPage}
         />
         <PrivateRoute
           path="/salon/:salonId/staff/:staffId"
-          component={UpdateStaffPage}
+          component={EditStaffPage}
         />
         <PrivateRoute
           path="/salon/:salonId/time_table/create"
