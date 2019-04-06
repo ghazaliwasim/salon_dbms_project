@@ -9,15 +9,13 @@ import LoginPage from '../pages/LoginPage';
 import Header from '../components/Header';
 // import HomePage from '../Home/pages/HomePage';
 import HomePage from '../pages/HomePage';
-// import SalonListPage from '../Salon/pages/SalonListPage';
 import SalonListPage from '../pages/SalonListPage';
 // import SalonPage from '../Salon/pages/SalonPage';
 import SalonPage from '../pages/SalonPage';
 import AddStaffPage from '../Salon/pages/AddStaffPage';
 import UpdateStaffPage from '../Salon/pages/UpdateStaffPage';
-// import AddSalonPage from '../Salon/pages/AddSalonPage';
 import CreateSalonPage from '../pages/CreateSalonPage';
-import UpdateSalonPage from '../Salon/pages/UpdateSalonPage';
+import EditSalonPage from '../pages/EditSalonPage';
 import AddServicePage from '../Salon/pages/AddServicePage';
 import AddTimeTablePage from '../Salon/pages/AddTimeTablePage';
 import AppointmentPage from '../Salon/pages/AppointmentPage';
@@ -56,10 +54,7 @@ const MainRouter = () => (
           component={AppointmentPage}
         />
         <PrivateRoute path="/salon/create" component={CreateSalonPage} />
-        <PrivateRoute
-          path="/salon/:salonId/update"
-          component={UpdateSalonPage}
-        />
+        <PrivateRoute path="/salon/:salonId/edit" component={EditSalonPage} />
         <PrivateRoute path="/salon/:salonId" component={SalonPage} />
         <PrivateRoute path="/salon" component={SalonListPage} />
         <Route path="/signup" component={SignupPage} />

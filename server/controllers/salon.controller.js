@@ -1,4 +1,4 @@
-const connection = require ('../mysql/mysql_connection');
+const connection = require('../mysql/mysql_connection');
 
 const create = (req, res) => {
   const salon = {
@@ -6,18 +6,18 @@ const create = (req, res) => {
     user_id: req.auth.id,
   };
 
-  connection.query ('INSERT INTO salon SET ?', salon, function (
+  connection.query('INSERT INTO salon SET ?', salon, function(
     err,
     results,
     fields
   ) {
     if (err) {
-      return res.status (400).json ({
+      return res.status(400).json({
         err,
       });
     }
 
-    res.status (200).json ({
+    res.status(200).json({
       message: 'Salon created successfully',
     });
   });
@@ -27,30 +27,30 @@ const list = (req, res) => {
   if (req.query.limit) {
     const {limit} = req.query;
 
-    connection.query (
+    connection.query(
       'SELECT * FROM salon LIMIT ?',
-      parseInt (limit, 10),
-      function (err, results, fields) {
+      parseInt(limit, 10),
+      function(err, results, fields) {
         if (err) {
-          return res.status (400).json ({
+          return res.status(400).json({
             err,
           });
         }
 
-        res.status (200).json ({
+        res.status(200).json({
           salons: results,
         });
       }
     );
   } else {
-    connection.query ('SELECT * FROM salon', function (err, results, fields) {
+    connection.query('SELECT * FROM salon', function(err, results, fields) {
       if (err) {
-        return res.status (400).json ({
+        return res.status(400).json({
           err,
         });
       }
 
-      res.status (200).json ({
+      res.status(200).json({
         salons: results,
       });
     });
@@ -60,17 +60,17 @@ const list = (req, res) => {
 const read = (req, res) => {
   const {salonId} = req.params;
 
-  connection.query (
+  connection.query(
     'SELECT * FROM salon WHERE id = ?',
-    parseInt (salonId, 10),
-    function (err, results, fields) {
+    parseInt(salonId, 10),
+    function(err, results, fields) {
       if (err) {
-        return res.status (400).json ({
+        return res.status(400).json({
           err,
         });
       }
 
-      res.status (200).json (results[0]);
+      res.status(200).json(results[0]);
     }
   );
 };
@@ -85,18 +85,19 @@ const update = (req, res) => {
     WHERE id = ?
   `;
 
-  connection.query (sql, [updateObject, parseInt (salonId, 10)], function (
+  connection.query(sql, [updateObject, parseInt(salonId, 10)], function(
     err,
     results,
     fields
   ) {
     if (err) {
-      return res.status (400).json ({
+      console.log(err);
+      return res.status(400).json({
         err,
       });
     }
 
-    res.status (200).json ({
+    res.status(200).json({
       maessage: 'Salon updated.',
     });
   });

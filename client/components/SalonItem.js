@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemtext';
+import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -36,4 +36,4 @@ const SalonItem = ({salon, classes}) => (
   </ListItem>
 );
 
-export default withStyles (styles) (SalonItem);
+export default withStyles(styles)(SalonItem);

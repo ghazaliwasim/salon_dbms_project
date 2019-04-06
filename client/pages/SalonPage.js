@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
 import DirectionsIcon from '@material-ui/icons/Directions';
@@ -6,6 +7,7 @@ import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
 import WebIcon from '@material-ui/icons/Web';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 
 import {readSalon} from '../api/salon.api';
@@ -35,6 +37,12 @@ const styles = theme => ({
   },
   staffItem: {
     marginBottom: theme.spacing.unit * 2,
+  },
+  button: {
+    marginTop: theme.spacing.unit * 2,
+  },
+  link: {
+    textDecoration: 'none',
   },
 });
 
@@ -93,6 +101,20 @@ class SalonPage extends React.Component {
                 <EmailIcon />
                 <span className={classes.detail}>{salon.email}</span>
               </Typography>
+              {this.state.salon.user_id === isAuthenticated().user.id && (
+                <Link
+                  className={classes.link}
+                  to={`/salon/${this.state.salon.id}/edit`}
+                >
+                  <Button
+                    className={classes.button}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    Edit Salon Details
+                  </Button>
+                </Link>
+              )}
             </div>
 
             <div>

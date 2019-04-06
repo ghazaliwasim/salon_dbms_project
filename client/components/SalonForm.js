@@ -12,7 +12,7 @@ import {withStyles} from '@material-ui/core/styles';
 const styles = theme => ({
   title: {
     fontWeight: 300,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 5,
   },
   textField: {
     marginBottom: theme.spacing.unit * 2,
