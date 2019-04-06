@@ -40,7 +40,7 @@ export const listSalons = (token, limit) => {
   }
 };
 
-export const read = (token, salonId) => {
+export const readSalon = (token, salonId) => {
   return axios ({
     method: 'get',
     url: `/api/salon/${salonId}`,
