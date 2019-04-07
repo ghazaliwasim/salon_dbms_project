@@ -102,6 +102,10 @@ class SalonPage extends React.Component {
               {salon.name}
             </Typography>
 
+            <Link to={`/salon/${salon.id}/appointment`}>
+              <Button>Book appointment</Button>
+            </Link>
+
             <div className={classes.section}>
               <Typography color="secondary" variant="h5" gutterBottom>
                 Details
