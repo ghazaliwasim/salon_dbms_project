@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 
 import {readSalon} from '../api/salon.api';
-import {listStaffs} from '../api/staff.api';
+import {listStaffs, removeStaff} from '../api/staff.api';
 import {listServices} from '../api/service.api';
 import {isAuthenticated} from '../helpers/auth.helper';
 
@@ -40,6 +40,7 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
   },
   link: {
     textDecoration: 'none',
@@ -53,29 +54,42 @@ class SalonPage extends React.Component {
     services: [],
   };
 
-  componentDidMount() {
-    const {token} = isAuthenticated();
+  componentDidMount () {
+    const {token} = isAuthenticated ();
     const {salonId} = this.props.match.params;
 
-    readSalon(token, salonId).then(salon => {
-      this.setState(() => ({salon}));
+    readSalon (token, salonId).then (salon => {
+      this.setState (() => ({salon}));
     });
 
-    listStaffs(token, salonId).then(staffs => {
-      this.setState(() => ({staffs}));
+    listStaffs (token, salonId).then (staffs => {
+      this.setState (() => ({staffs}));
     });
 
-    listServices(token, salonId).then(services => {
-      this.setState(() => ({services}));
+    listServices (token, salonId).then (services => {
+      this.setState (() => ({services}));
     });
   }
 
-  render() {
+  handleRemoveStaff = staffId => {
+    return () => {
+      const {token} = isAuthenticated ();
+
+      removeStaff (token, staffId).then (() => {
+        const {salonId} = this.props.match.params;
+        listStaffs (token, salonId).then (staffs => {
+          this.setState (() => ({staffs}));
+        });
+      });
+    };
+  };
+
+  render () {
     const {classes} = this.props;
     const {salon} = this.state;
     return (
       <div className={classes.root}>
-        {salon && (
+        {salon &&
           <div>
             <Typography color="primary" className={classes.title} variant="h3">
               {salon.name}
@@ -101,7 +115,7 @@ class SalonPage extends React.Component {
                 <EmailIcon />
                 <span className={classes.detail}>{salon.email}</span>
               </Typography>
-              {this.state.salon.user_id === isAuthenticated().user.id && (
+              {this.state.salon.user_id === isAuthenticated ().user.id &&
                 <Link
                   className={classes.link}
                   to={`/salon/${this.state.salon.id}/edit`}
@@ -113,15 +127,14 @@ class SalonPage extends React.Component {
                   >
                     Edit Salon Details
                   </Button>
-                </Link>
-              )}
+                </Link>}
             </div>
 
             <div>
               <Typography color="secondary" variant="h5" gutterBottom>
                 Staffs
               </Typography>
-              {this.state.salon.user_id === isAuthenticated().user.id && (
+              {this.state.salon.user_id === isAuthenticated ().user.id &&
                 <Link
                   className={classes.link}
                   to={`/salon/${salon.id}/staff/create`}
@@ -133,9 +146,8 @@ class SalonPage extends React.Component {
                   >
                     Add Staff
                   </Button>
-                </Link>
-              )}
-              {this.state.staffs.map(staff => (
+                </Link>}
+              {this.state.staffs.map (staff => (
                 <div className={classes.staffItem} key={staff.id}>
                   <Typography variant="h6">
                     {staff.first_name} {staff.last_name}
@@ -147,20 +159,29 @@ class SalonPage extends React.Component {
                   <Typography variant="body2" gutterBottom>
                     {staff.gender === 'F' && 'Female'}
                   </Typography>
-                  {this.state.salon.user_id === isAuthenticated().user.id && (
-                    <Link
-                      className={classes.link}
-                      to={`/salon/${this.state.salon.id}/staff/${staff.id}`}
-                    >
+                  {this.state.salon.user_id === isAuthenticated ().user.id &&
+                    <React.Fragment>
+                      <Link
+                        className={classes.link}
+                        to={`/salon/${this.state.salon.id}/staff/${staff.id}`}
+                      >
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          className={classes.button}
+                        >
+                          Edit
+                        </Button>
+                      </Link>
                       <Button
                         variant="outlined"
                         color="secondary"
                         className={classes.button}
+                        onClick={this.handleRemoveStaff (staff.id)}
                       >
-                        Edit
+                        Remove
                       </Button>
-                    </Link>
-                  )}
+                    </React.Fragment>}
                   <Divider variant="fullWidth" />
                 </div>
               ))}
@@ -170,7 +191,7 @@ class SalonPage extends React.Component {
               <Typography color="secondary" variant="h5" gutterBottom>
                 Services
               </Typography>
-              {this.state.services.map(service => (
+              {this.state.services.map (service => (
                 <div key={service.id}>
                   <Typography variant="h6">{service.name}</Typography>
                   <Typography variant="subtitle1">
@@ -191,11 +212,10 @@ class SalonPage extends React.Component {
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          </div>}
       </div>
     );
   }
 }
 
-export default withStyles(styles)(SalonPage);
+export default withStyles (styles) (SalonPage);

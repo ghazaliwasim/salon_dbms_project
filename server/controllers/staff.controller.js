@@ -104,4 +104,29 @@ const read = (req, res) => {
   });
 };
 
-module.exports = {create, list, update, read};
+const remove = (req, res) => {
+  const {staffId} = req.params;
+
+  const sql = `
+    DELETE FROM staff WHERE id = ?
+  `;
+
+  connection.query (sql, parseInt (staffId, 10), function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) {
+      console.log (err);
+      return res.status (400).json ({
+        err,
+      });
+    }
+
+    res.status (200).json ({
+      message: 'Staff remove successfully!',
+    });
+  });
+};
+
+module.exports = {create, list, update, read, remove};
