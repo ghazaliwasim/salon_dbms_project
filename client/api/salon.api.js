@@ -1,70 +1,70 @@
 import axios from 'axios';
 
 export const create = (salon, token) => {
-  return axios({
+  return axios ({
     method: 'post',
     url: '/api/salon',
-    data: JSON.stringify(salon),
+    data: JSON.stringify (salon),
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
-  }).then(({data}) => {
-    console.log(data);
+  }).then (({data}) => {
+    console.log (data);
   });
 };
 
-export const listSalons = (token, limit) => {
-  if (limit) {
-    return axios({
+export const listSalons = (token, searchQuery) => {
+  if (searchQuery) {
+    return axios ({
       method: 'get',
-      url: `/api/salon?limit=${limit}`,
+      url: `/api/salon?search=${searchQuery}`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
-    }).then(({data}) => {
+    }).then (({data}) => {
       return data.salons;
     });
   } else {
-    return axios({
+    return axios ({
       method: 'get',
       url: `/api/salon`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
-    }).then(({data}) => {
+    }).then (({data}) => {
       return data.salons;
     });
   }
 };
 
 export const readSalon = (token, salonId) => {
-  return axios({
+  return axios ({
     method: 'get',
     url: `/api/salon/${salonId}`,
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
-  }).then(({data}) => {
+  }).then (({data}) => {
     return data;
   });
 };
 
 export const updateSalon = (token, salonId, payload) => {
-  console.log(salonId);
-  console.log(payload);
-  return axios({
+  console.log (salonId);
+  console.log (payload);
+  return axios ({
     method: 'post',
     url: `/api/salon/${salonId}`,
-    data: JSON.stringify(payload),
+    data: JSON.stringify (payload),
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
-  }).then(({data}) => {
-    console.log(data);
+  }).then (({data}) => {
+    console.log (data);
   });
 };

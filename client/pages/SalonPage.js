@@ -13,7 +13,9 @@ import {withStyles} from '@material-ui/core/styles';
 import {readSalon} from '../api/salon.api';
 import {listStaffs, removeStaff} from '../api/staff.api';
 import {listServices} from '../api/service.api';
+import {listTimeTable} from '../api/salonTimeTable.api';
 import {isAuthenticated} from '../helpers/auth.helper';
+import {ListItem, ListItemText} from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -52,6 +54,7 @@ class SalonPage extends React.Component {
     salon: null,
     staffs: [],
     services: [],
+    timeTable: [],
   };
 
   componentDidMount () {
@@ -68,6 +71,10 @@ class SalonPage extends React.Component {
 
     listServices (token, salonId).then (services => {
       this.setState (() => ({services}));
+    });
+
+    listTimeTable (token, salonId).then (timeTable => {
+      this.setState (() => ({timeTable}));
     });
   }
 
@@ -212,6 +219,25 @@ class SalonPage extends React.Component {
                 </div>
               ))}
             </div>
+
+            <div>
+              <Typography color="secondary" variant="h5" gutterBottom>
+                Time Table
+              </Typography>
+              {this.state.timeTable.map (tt => (
+                <ListItem key={tt.day}>
+                  <ListItemText
+                    primary={tt.day}
+                    secondary={
+                      <Typography>
+                        {tt.opening_time}{' '}-{' '}{tt.closing_time}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </div>
+
           </div>}
       </div>
     );
