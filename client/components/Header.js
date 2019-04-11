@@ -32,17 +32,17 @@ class Header extends React.Component {
   };
 
   handleMenu = e => {
-    this.setState({anchorEl: e.currentTarget});
+    this.setState ({anchorEl: e.currentTarget});
   };
 
   handleClose = () => {
-    this.setState({anchorEl: null});
+    this.setState ({anchorEl: null});
   };
 
-  render() {
+  render () {
     const {classes} = this.props;
     const {anchorEl} = this.state;
-    const open = Boolean(anchorEl);
+    const open = Boolean (anchorEl);
 
     return (
       <div className={classes.root}>
@@ -52,68 +52,64 @@ class Header extends React.Component {
               Salon
             </Typography>
 
-            {isAuthenticated() ? (
-              // (<Button
-              //     className={classes.button}
-              //     color="secondary"
-              //     variant="contained"
-              //   >
-              //     Logout
-              //   </Button>)
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>
-                    <Link className={classes.link} to="/salon/create">
-                      Create Salon
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                </Menu>
-              </div>
-            ) : (
-              <div>
-                <Link className={classes.link} to="/signup">
-                  <Button
-                    className={classes.button}
-                    color="secondary"
-                    variant="contained"
+            {isAuthenticated ()
+              ? <div>
+                  <IconButton
+                    aria-owns={open ? 'menu-appbar' : undefined}
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="inherit"
                   >
-                    Signup
-                  </Button>
-                </Link>
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={open}
+                    onClose={this.handleClose}
+                  >
+                    <MenuItem onClick={this.handleClose}>
+                      <Link className={classes.link} to="/salon/create">
+                        Create Salon
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link className={classes.link} to="/appointments">
+                        Appointments
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              : <div>
+                  <Link className={classes.link} to="/signup">
+                    <Button
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Signup
+                    </Button>
+                  </Link>
 
-                <Link className={classes.link} to="/login">
-                  <Button
-                    className={classes.button}
-                    color="secondary"
-                    variant="contained"
-                  >
-                    Login
-                  </Button>
-                </Link>
-              </div>
-            )}
+                  <Link className={classes.link} to="/login">
+                    <Button
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                </div>}
           </Toolbar>
         </AppBar>
       </div>
@@ -121,4 +117,4 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(styles)(Header);
+export default withStyles (styles) (Header);

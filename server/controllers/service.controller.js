@@ -1,20 +1,20 @@
-const connection = require ('../mysql/mysql_connection');
+const connection = require('../mysql/mysql_connection');
 
 const create = (req, res) => {
   const service = req.body;
 
-  connection.query ('INSERT INTO service SET ?', service, function (
+  connection.query('INSERT INTO service SET ?', service, function(
     err,
     results,
     fields
   ) {
     if (err) {
-      return res.status (400).json ({
+      return res.status(400).json({
         err,
       });
     }
 
-    res.status (200).json ({
+    res.status(200).json({
       message: 'Service created successfully',
     });
   });
@@ -39,21 +39,38 @@ const list = (req, res) => {
     WHERE salon.id = ?
   `;
 
-  connection.query (sql, parseInt (salonId, 10), function (
-    err,
-    results,
-    fields
-  ) {
+  connection.query(sql, parseInt(salonId, 10), function(err, results, fields) {
     if (err) {
-      return res.status (400).json ({
+      return res.status(400).json({
         err,
       });
     }
 
-    res.status (200).json ({
+    res.status(200).json({
       services: results,
     });
   });
 };
 
-module.exports = {create, list};
+const read = (req, res) => {
+  const {serviceId} = req.params;
+
+  const sql = `
+    SELECT * FROM service
+    WHERE id = ?
+  `;
+
+  connection.query(sql, parseInt(serviceId, 10), function(
+    err,
+    results,
+    fields
+  ) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log(results);
+  });
+};
+
+module.exports = {create, list, read};
