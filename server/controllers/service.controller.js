@@ -66,10 +66,10 @@ const read = (req, res) => {
     fields
   ) {
     if (err) {
-      return console.log(err);
+      return res.status(400).json({err});
     }
 
-    console.log(results);
+    res.status(200).json(results[0]);
   });
 };
 

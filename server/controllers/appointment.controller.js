@@ -95,4 +95,42 @@ const read = (req, res) => {
   });
 };
 
-module.exports = {create, list, read};
+const remove = (req, res) => {
+  const {appointmentId} = req.params;
+
+  const sql = `
+    DELETE FROM appointment_service_info
+    WHERE appointment_id = ?
+  `;
+
+  connection.query(sql, parseInt(appointmentId), function(
+    err1,
+    results1,
+    fields1
+  ) {
+    if (err1) {
+      return res.status(400).json(err1);
+    }
+
+    const sql2 = `
+      DELETE FROM appointment
+      WHERE id =?
+    `;
+
+    connection.query(sql2, parseInt(appointmentId), function(
+      err2,
+      results2,
+      fields2
+    ) {
+      if (err2) {
+        return res.status(400).json(err2);
+      }
+
+      res.status(200).json({
+        message: 'Appointment Deleted Successfully!',
+      });
+    });
+  });
+};
+
+module.exports = {create, list, read, remove};

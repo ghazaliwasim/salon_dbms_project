@@ -11,6 +11,7 @@ router
 
 router
   .route('/api/appointment/:appointmentId')
-  .get(authCtrl.requireSignin, appointmentCtrl.read);
+  .get(authCtrl.requireSignin, appointmentCtrl.read)
+  .delete(authCtrl.requireSignin, appointmentCtrl.remove);
 
 module.exports = router;
