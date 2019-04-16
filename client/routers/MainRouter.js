@@ -16,7 +16,8 @@ import CreateStaffPage from '../pages/CreateStaffPage';
 import EditStaffPage from '../pages/EditStaffPage';
 import CreateSalonPage from '../pages/CreateSalonPage';
 import EditSalonPage from '../pages/EditSalonPage';
-import AddServicePage from '../Salon/pages/AddServicePage';
+import CreateServicePage from '../pages/CreateServicePage';
+import EditServicePage from '../pages/EditServicePage';
 import AddTimeTablePage from '../Salon/pages/AddTimeTablePage';
 import CreateAppointmentPage from '../pages/CreateAppointmentPage';
 import AddFeedbackPage from '../Salon/pages/AddFeedbackPage';
@@ -32,7 +33,11 @@ const MainRouter = () => (
         <PrivateRoute exact path="/" component={HomePage} />
         <PrivateRoute
           path="/salon/:salonId/service/create"
-          component={AddServicePage}
+          component={CreateServicePage}
+        />
+        <PrivateRoute
+          path="/salon/:salonId/service/:serviceId"
+          component={EditServicePage}
         />
         <PrivateRoute
           path="/salon/:salonId/feedback/create"

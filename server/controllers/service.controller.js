@@ -1,20 +1,20 @@
-const connection = require('../mysql/mysql_connection');
+const connection = require ('../mysql/mysql_connection');
 
 const create = (req, res) => {
   const service = req.body;
 
-  connection.query('INSERT INTO service SET ?', service, function(
+  connection.query ('INSERT INTO service SET ?', service, function (
     err,
     results,
     fields
   ) {
     if (err) {
-      return res.status(400).json({
+      return res.status (400).json ({
         err,
       });
     }
 
-    res.status(200).json({
+    res.status (200).json ({
       message: 'Service created successfully',
     });
   });
@@ -39,14 +39,18 @@ const list = (req, res) => {
     WHERE salon.id = ?
   `;
 
-  connection.query(sql, parseInt(salonId, 10), function(err, results, fields) {
+  connection.query (sql, parseInt (salonId, 10), function (
+    err,
+    results,
+    fields
+  ) {
     if (err) {
-      return res.status(400).json({
+      return res.status (400).json ({
         err,
       });
     }
 
-    res.status(200).json({
+    res.status (200).json ({
       services: results,
     });
   });
@@ -60,17 +64,44 @@ const read = (req, res) => {
     WHERE id = ?
   `;
 
-  connection.query(sql, parseInt(serviceId, 10), function(
+  connection.query (sql, parseInt (serviceId, 10), function (
     err,
     results,
     fields
   ) {
     if (err) {
-      return res.status(400).json({err});
+      return res.status (400).json ({err});
     }
 
-    res.status(200).json(results[0]);
+    res.status (200).json (results[0]);
   });
 };
 
-module.exports = {create, list, read};
+const update = (req, res) => {
+  const {serviceId} = req.params;
+  const updateObject = req.body;
+
+  const sql = `
+    UPDATE service
+    SET ?
+    WHERE id = ?
+  `;
+
+  connection.query (sql, [updateObject, parseInt (serviceId, 10)], function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) {
+      return res.status (400).json ({
+        err,
+      });
+    }
+
+    res.status (200).json ({
+      maessage: 'Service updated.',
+    });
+  });
+};
+
+module.exports = {create, list, read, update};

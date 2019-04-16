@@ -7,18 +7,21 @@ import StaffForm from '../components/StaffForm';
 
 class CreateStaffPage extends React.Component {
   onSubmit = staff => {
-    const {token} = isAuthenticated();
+    const {token} = isAuthenticated ();
+    const {salonId} = this.props.match.params;
 
-    create(token, staff);
+    create (token, staff).then (() => {
+      this.props.history.push (`/salon/${salonId}`);
+    });
   };
 
-  render() {
+  render () {
     return (
       <StaffForm
         title={'Create Staff'}
         salonId={this.props.match.params.salonId}
         onSubmit={staff => {
-          this.onSubmit(staff);
+          this.onSubmit (staff);
         }}
       />
     );

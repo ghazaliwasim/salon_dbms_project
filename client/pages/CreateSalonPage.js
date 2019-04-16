@@ -6,17 +6,19 @@ import {create} from '../api/salon.api';
 
 class CreateSalonPage extends React.Component {
   onSubmit = salon => {
-    const {token} = isAuthenticated();
+    const {token} = isAuthenticated ();
 
-    create(salon, token);
+    create (salon, token).then (() => {
+      this.props.history.push ('/salon');
+    });
   };
 
-  render() {
+  render () {
     return (
       <SalonForm
         title={'Create Salon'}
         onSubmit={salon => {
-          this.onSubmit(salon);
+          this.onSubmit (salon);
         }}
       />
     );

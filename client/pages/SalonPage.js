@@ -43,6 +43,7 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
+    color: theme.palette.tertiary.main,
   },
   link: {
     textDecoration: 'none',
@@ -131,11 +132,7 @@ class SalonPage extends React.Component {
                   className={classes.link}
                   to={`/salon/${this.state.salon.id}/edit`}
                 >
-                  <Button
-                    className={classes.button}
-                    variant="outlined"
-                    color="secondary"
-                  >
+                  <Button className={classes.button}>
                     Edit Salon Details
                   </Button>
                 </Link>}
@@ -150,11 +147,7 @@ class SalonPage extends React.Component {
                   className={classes.link}
                   to={`/salon/${salon.id}/staff/create`}
                 >
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    className={classes.button}
-                  >
+                  <Button className={classes.button}>
                     Add Staff
                   </Button>
                 </Link>}
@@ -176,17 +169,11 @@ class SalonPage extends React.Component {
                         className={classes.link}
                         to={`/salon/${this.state.salon.id}/staff/${staff.id}`}
                       >
-                        <Button
-                          variant="outlined"
-                          color="secondary"
-                          className={classes.button}
-                        >
+                        <Button className={classes.button}>
                           Edit
                         </Button>
                       </Link>
                       <Button
-                        variant="outlined"
-                        color="secondary"
                         className={classes.button}
                         onClick={this.handleRemoveStaff (staff.id)}
                       >
@@ -202,6 +189,15 @@ class SalonPage extends React.Component {
               <Typography color="secondary" variant="h5" gutterBottom>
                 Services
               </Typography>
+              {this.state.salon.user_id === isAuthenticated ().user.id &&
+                <Link
+                  className={classes.link}
+                  to={`/salon/${salon.id}/service/create`}
+                >
+                  <Button className={classes.button}>
+                    Add Service
+                  </Button>
+                </Link>}
               {this.state.services.map (service => (
                 <div key={service.id}>
                   <Typography variant="h6">{service.name}</Typography>
@@ -220,6 +216,23 @@ class SalonPage extends React.Component {
                   <Typography variant="subtitle1">
                     Cost: &#8377; {service.cost}
                   </Typography>
+                  {this.state.salon.user_id === isAuthenticated ().user.id &&
+                    <React.Fragment>
+                      <Link
+                        className={classes.link}
+                        to={`/salon/${this.state.salon.id}/service/${service.id}`}
+                      >
+                        <Button className={classes.button}>
+                          Edit
+                        </Button>
+                      </Link>
+                      {/* <Button
+                        className={classes.button}
+                        onClick={this.handleRemoveStaff (staff.id)}
+                      >
+                        Remove
+                      </Button> */}
+                    </React.Fragment>}
                 </div>
               ))}
             </div>

@@ -9,33 +9,34 @@ class EditSalonPage extends React.Component {
     salon: null,
   };
 
-  componentDidMount() {
-    const {token} = isAuthenticated();
+  componentDidMount () {
+    const {token} = isAuthenticated ();
     const {salonId} = this.props.match.params;
 
-    readSalon(token, salonId).then(salon => {
-      this.setState(() => ({salon}));
+    readSalon (token, salonId).then (salon => {
+      this.setState (() => ({salon}));
     });
   }
 
   onSubmit = salon => {
-    const {token} = isAuthenticated();
+    const {token} = isAuthenticated ();
     const {salonId} = this.props.match.params;
-    updateSalon(token, salonId, salon);
+    updateSalon (token, salonId, salon).then (() => {
+      this.props.history.push (`/salon/${salonId}`);
+    });
   };
 
-  render() {
+  render () {
     return (
       <div>
-        {this.state.salon && (
+        {this.state.salon &&
           <SalonForm
             title={'Update Salon Details'}
             onSubmit={salon => {
-              this.onSubmit(salon);
+              this.onSubmit (salon);
             }}
             salon={this.state.salon}
-          />
-        )}
+          />}
       </div>
     );
   }
