@@ -104,4 +104,29 @@ const update = (req, res) => {
   });
 };
 
-module.exports = {create, list, read, update};
+const remove = (req, res) => {
+  const {serviceId} = req.params;
+
+  const sql = `
+    DELETE FROM service WHERE id = ?
+  `;
+
+  connection.query (sql, parseInt (serviceId, 10), function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) {
+      console.log (err);
+      return res.status (400).json ({
+        err,
+      });
+    }
+
+    res.status (200).json ({
+      message: 'Service remove successfully!',
+    });
+  });
+};
+
+module.exports = {create, list, read, update, remove};

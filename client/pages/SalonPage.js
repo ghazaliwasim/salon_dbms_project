@@ -12,7 +12,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import {readSalon} from '../api/salon.api';
 import {listStaffs, removeStaff} from '../api/staff.api';
-import {listServices} from '../api/service.api';
+import {listServices, removeService} from '../api/service.api';
 import {listTimeTable} from '../api/salonTimeTable.api';
 import {isAuthenticated} from '../helpers/auth.helper';
 import {ListItem, ListItemText} from '@material-ui/core';
@@ -87,6 +87,19 @@ class SalonPage extends React.Component {
         const {salonId} = this.props.match.params;
         listStaffs (token, salonId).then (staffs => {
           this.setState (() => ({staffs}));
+        });
+      });
+    };
+  };
+
+  handleRemoveService = serviceId => {
+    return () => {
+      const {token} = isAuthenticated ();
+
+      removeService (token, serviceId).then (() => {
+        const {salonId} = this.props.match.params;
+        listServices (token, salonId).then (services => {
+          this.setState (() => ({services}));
         });
       });
     };
@@ -226,12 +239,12 @@ class SalonPage extends React.Component {
                           Edit
                         </Button>
                       </Link>
-                      {/* <Button
+                      <Button
                         className={classes.button}
-                        onClick={this.handleRemoveStaff (staff.id)}
+                        onClick={this.handleRemoveService (service.id)}
                       >
                         Remove
-                      </Button> */}
+                      </Button>
                     </React.Fragment>}
                 </div>
               ))}

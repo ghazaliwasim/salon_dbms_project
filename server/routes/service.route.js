@@ -12,6 +12,7 @@ router
 router
   .route ('/api/service/:serviceId')
   .get (authCtrl.requireSignin, serviceCtrl.read)
-  .post (authCtrl.requireSignin, serviceCtrl.update);
+  .post (authCtrl.requireSignin, serviceCtrl.update)
+  .delete (authCtrl.requireSignin, serviceCtrl.remove);
 
 module.exports = router;

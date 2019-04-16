@@ -52,3 +52,15 @@ export const updateService = (token, serviceId, payload) => {
     console.log (data);
   });
 };
+
+export const removeService = (token, serviceId) => {
+  return axios ({
+    method: 'delete',
+    url: `/api/service/${serviceId}`,
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  }).then (({data}) => {
+    console.log (data);
+  });
+};
