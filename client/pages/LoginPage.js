@@ -81,7 +81,7 @@ class LoginPage extends React.Component {
           this.setState (() => ({error: data.errorMessage}));
         } else {
           authenticate (data, () => {
-            this.props.history.push ('/');
+            this.props.history.push ('/salon');
           });
         }
       });

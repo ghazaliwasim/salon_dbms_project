@@ -8,6 +8,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import WebIcon from '@material-ui/icons/Web';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import {ListItem, ListItemText} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
 import {readSalon} from '../api/salon.api';
@@ -15,7 +16,8 @@ import {listStaffs, removeStaff} from '../api/staff.api';
 import {listServices, removeService} from '../api/service.api';
 import {listTimeTable} from '../api/salonTimeTable.api';
 import {isAuthenticated} from '../helpers/auth.helper';
-import {ListItem, ListItemText} from '@material-ui/core';
+import {listFeedback} from '../api/feedback.api';
+import {readUser} from '../api/user.api';
 
 const styles = theme => ({
   root: {
@@ -56,6 +58,7 @@ class SalonPage extends React.Component {
     staffs: [],
     services: [],
     timeTable: [],
+    feedbacks: [],
   };
 
   componentDidMount () {
@@ -76,6 +79,20 @@ class SalonPage extends React.Component {
 
     listTimeTable (token, salonId).then (timeTable => {
       this.setState (() => ({timeTable}));
+    });
+
+    listFeedback (token, salonId).then (feedbacks => {
+      feedbacks.forEach (f => {
+        readUser (token, f.user_id).then (user => {
+          f.user = user;
+        });
+      });
+
+      console.log ('feedbacks', feedbacks);
+
+      this.setState (() => ({
+        feedbacks,
+      }));
     });
   }
 
@@ -145,9 +162,7 @@ class SalonPage extends React.Component {
                   className={classes.link}
                   to={`/salon/${this.state.salon.id}/edit`}
                 >
-                  <Button className={classes.button}>
-                    Edit Salon Details
-                  </Button>
+                  <Button className={classes.button}>Edit Salon Details</Button>
                 </Link>}
             </div>
 
@@ -160,9 +175,7 @@ class SalonPage extends React.Component {
                   className={classes.link}
                   to={`/salon/${salon.id}/staff/create`}
                 >
-                  <Button className={classes.button}>
-                    Add Staff
-                  </Button>
+                  <Button className={classes.button}>Add Staff</Button>
                 </Link>}
               {this.state.staffs.map (staff => (
                 <div className={classes.staffItem} key={staff.id}>
@@ -182,9 +195,7 @@ class SalonPage extends React.Component {
                         className={classes.link}
                         to={`/salon/${this.state.salon.id}/staff/${staff.id}`}
                       >
-                        <Button className={classes.button}>
-                          Edit
-                        </Button>
+                        <Button className={classes.button}>Edit</Button>
                       </Link>
                       <Button
                         className={classes.button}
@@ -207,9 +218,7 @@ class SalonPage extends React.Component {
                   className={classes.link}
                   to={`/salon/${salon.id}/service/create`}
                 >
-                  <Button className={classes.button}>
-                    Add Service
-                  </Button>
+                  <Button className={classes.button}>Add Service</Button>
                 </Link>}
               {this.state.services.map (service => (
                 <div key={service.id}>
@@ -235,9 +244,7 @@ class SalonPage extends React.Component {
                         className={classes.link}
                         to={`/salon/${this.state.salon.id}/service/${service.id}`}
                       >
-                        <Button className={classes.button}>
-                          Edit
-                        </Button>
+                        <Button className={classes.button}>Edit</Button>
                       </Link>
                       <Button
                         className={classes.button}
@@ -254,13 +261,22 @@ class SalonPage extends React.Component {
               <Typography color="secondary" variant="h5" gutterBottom>
                 Time Table
               </Typography>
+              {this.state.salon.user_id === isAuthenticated ().user.id &&
+                <React.Fragment>
+                  <Link
+                    // className={classes.link}
+                    to={`/salon/${this.state.salon.id}/time_table/create`}
+                  >
+                    <Button className={classes.button}>Add Time Table</Button>
+                  </Link>
+                </React.Fragment>}
               {this.state.timeTable.map (tt => (
                 <ListItem key={tt.day}>
                   <ListItemText
                     primary={tt.day}
                     secondary={
                       <Typography>
-                        {tt.opening_time}{' '}-{' '}{tt.closing_time}
+                        {tt.opening_time} - {tt.closing_time}
                       </Typography>
                     }
                   />
@@ -268,6 +284,20 @@ class SalonPage extends React.Component {
               ))}
             </div>
 
+            <div>
+              <Typography color="secondary" variant="h5" gutterBottom>
+                Feedbacks
+              </Typography>
+              {this.state.feedbacks.map (f => {
+                console.log ('f', f);
+                return (
+                  <div key={f.id}>
+                    {f.user && <Typography>{f.user.firstName}</Typography>}
+                    <Typography>{f.feedback_text}</Typography>
+                  </div>
+                );
+              })}
+            </div>
           </div>}
       </div>
     );

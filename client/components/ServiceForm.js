@@ -37,16 +37,16 @@ const styles = theme => ({
 
 class ServiceForm extends React.Component {
   state = {
-    name: this.props.service.name ? this.props.service.name : '',
-    brand: this.props.service.brand ? this.props.service.brand : '',
-    benefits: this.props.service.benefits ? this.props.service.benefits : '',
-    points_to_remember: this.props.service.points_to_remember
+    name: this.props.service ? this.props.service.name : '',
+    brand: this.props.service ? this.props.service.brand : '',
+    benefits: this.props.service ? this.props.service.benefits : '',
+    points_to_remember: this.props.service
       ? this.props.service.points_to_remember
       : '',
-    recommended_for: this.props.service.recommended_for
+    recommended_for: this.props.service
       ? this.props.service.recommended_for
       : '',
-    cost: this.props.service.cost ? this.props.service.cost : '',
+    cost: this.props.service ? this.props.service.cost : '',
   };
 
   onFieldChange = name => {

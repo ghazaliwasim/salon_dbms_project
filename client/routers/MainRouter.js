@@ -18,7 +18,8 @@ import CreateSalonPage from '../pages/CreateSalonPage';
 import EditSalonPage from '../pages/EditSalonPage';
 import CreateServicePage from '../pages/CreateServicePage';
 import EditServicePage from '../pages/EditServicePage';
-import AddTimeTablePage from '../Salon/pages/AddTimeTablePage';
+// import AddTimeTablePage from '../Salon/pages/AddTimeTablePage';
+import CreateTimeTablePage from '../pages/CreateTimeTablePage';
 import CreateAppointmentPage from '../pages/CreateAppointmentPage';
 import AddFeedbackPage from '../Salon/pages/AddFeedbackPage';
 import AppointmentsPage from '../pages/AppointmentsPage';
@@ -53,7 +54,7 @@ const MainRouter = () => (
         />
         <PrivateRoute
           path="/salon/:salonId/time_table/create"
-          component={AddTimeTablePage}
+          component={CreateTimeTablePage}
         />
         <PrivateRoute
           path="/salon/:salonId/appointment"
